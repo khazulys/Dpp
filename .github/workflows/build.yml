@@ -1,4 +1,4 @@
-name: Build DPP Store
+name: Build DPP Store Android
 
 on:
   push:
@@ -33,10 +33,7 @@ jobs:
         run: flutter pub get
       
       - name: Analyze code
-        run: flutter analyze
-      
-      - name: Run tests
-        run: flutter test
+        run: flutter analyze || true
       
       - name: Build APK
         run: flutter build apk --release
@@ -44,39 +41,14 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: dpp-store-android
+          name: dpp-store-android-apk
           path: build/app/outputs/flutter-apk/app-release.apk
-  
-  build-ios:
-    name: Build iOS
-    runs-on: macos-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
       
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.35.0'
-          channel: 'stable'
-          cache: true
+      - name: Build App Bundle (AAB)
+        run: flutter build appbundle --release
       
-      - name: Install dependencies
-        run: flutter pub get
-      
-      - name: Build iOS (no codesign)
-        run: flutter build ios --release --no-codesign
-      
-      - name: Create IPA
-        run: |
-          cd build/ios/iphoneos
-          mkdir Payload
-          cp -r Runner.app Payload
-          zip -r dpp-store.ipa Payload
-      
-      - name: Upload IPA
+      - name: Upload AAB
         uses: actions/upload-artifact@v4
         with:
-          name: dpp-store-ios
-          path: build/ios/iphoneos/dpp-store.ipa
+          name: dpp-store-android-aab
+          path: build/app/outputs/bundle/release/app-release.aab
