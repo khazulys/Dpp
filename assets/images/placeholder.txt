@@ -1,0 +1,8 @@
+Placeholder untuk images.
+Tambahkan logo, banner, dan product images di folder ini.
+
+Rekomendasi struktur:
+- logo.png (app logo)
+- banner1.jpg, banner2.jpg (home banners)
+- products/ (folder untuk product images)
+- categories/ (folder untuk category icons)

@@ -1,0 +1,4 @@
+Placeholder untuk custom icons.
+ForUI sudah menyediakan banyak icons built-in (FIcons).
+
+Jika butuh custom icons, tambahkan di sini.
